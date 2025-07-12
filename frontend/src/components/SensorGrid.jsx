@@ -5,26 +5,50 @@ const SensorGrid = ({ equipmentData }) => {
   const [selectedSensor, setSelectedSensor] = useState(null);
   const [timeRange, setTimeRange] = useState('1h');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const canvasRef = useRef(null);
-  const animationRef = useRef(null);
 
   // Generate sensor data
   useEffect(() => {
     const generateSensors = () => {
-      const sensorTypes = [
-        { type: 'temperature', unit: '°C', min: 20, max: 80, icon: '🌡️', color: 'red' },
-        { type: 'pressure', unit: 'PSI', min: 100, max: 500, icon: '📊', color: 'blue' },
-        { type: 'vibration', unit: 'Hz', min: 0, max: 100, icon: '📳', color: 'yellow' },
-        { type: 'flow', unit: 'L/min', min: 0, max: 1000, icon: '🌊', color: 'cyan' },
-        { type: 'level', unit: '%', min: 0, max: 100, icon: '📈', color: 'green' },
-        { type: 'speed', unit: 'RPM', min: 0, max: 3000, icon: '⚡', color: 'purple' }
-      ];
+      try {
+        setError(null);
+        
+        // Safety check for equipmentData
+        if (!equipmentData) {
+          console.log('⚠️ SensorGrid: equipmentData not available yet');
+          setLoading(true);
+          return;
+        }
 
-      const equipment = [
-        ...Object.values(equipmentData.trucks || {}),
-        ...Object.values(equipmentData.crushers || {}),
-        ...Object.values(equipmentData.stockpiles || {})
-      ];
+        const sensorTypes = [
+          { type: 'temperature', unit: '°C', min: 20, max: 80, icon: '🌡️', color: 'red' },
+          { type: 'pressure', unit: 'PSI', min: 100, max: 500, icon: '📊', color: 'blue' },
+          { type: 'vibration', unit: 'Hz', min: 0, max: 100, icon: '📳', color: 'yellow' },
+          { type: 'flow', unit: 'L/min', min: 0, max: 1000, icon: '🌊', color: 'cyan' },
+          { type: 'level', unit: '%', min: 0, max: 100, icon: '📈', color: 'green' },
+          { type: 'speed', unit: 'RPM', min: 0, max: 3000, icon: '⚡', color: 'purple' }
+        ];
+
+        // Safely extract equipment data with fallbacks
+        const trucks = equipmentData.trucks || {};
+        const crushers = equipmentData.crushers || {};
+        const stockpiles = equipmentData.stockpiles || {};
+
+        const equipment = [
+          ...Object.values(trucks),
+          ...Object.values(crushers),
+          ...Object.values(stockpiles)
+        ];
+
+        // Safety check for empty equipment array
+        if (equipment.length === 0) {
+          console.log('⚠️ SensorGrid: No equipment data available');
+          setSensors([]); // Set empty sensors array
+          setLoading(false);
+          return;
+        }
 
       const newSensors = [];
       equipment.forEach((equipment, equipIndex) => {
@@ -56,6 +80,12 @@ const SensorGrid = ({ equipmentData }) => {
       });
 
       setSensors(newSensors);
+      setLoading(false);
+      } catch (error) {
+        console.error('Error generating sensor data:', error);
+        setError(error.message);
+        setLoading(false);
+      }
     };
 
     generateSensors();
@@ -188,16 +218,53 @@ const SensorGrid = ({ equipmentData }) => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 tracking-wider">
-            SENSOR NETWORK
-          </h2>
-          <p className="text-cyan-400/60 font-mono text-sm mt-1">
-            Real-time monitoring and diagnostics
-          </p>
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center p-8">
+          <div className="text-cyan-400 font-mono">
+            <div className="animate-spin text-2xl mb-2">⚡</div>
+            Loading sensor network...
+          </div>
         </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
+          <div className="text-red-400 font-mono">
+            <div className="text-lg mb-1">🚨 Sensor Network Error</div>
+            <div className="text-sm opacity-75">{error}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content - Only show when not loading and no error */}
+      {!loading && !error && (
+        <>
+          {/* Empty State */}
+          {sensors.length === 0 && (
+            <div className="flex items-center justify-center p-8">
+              <div className="text-center text-cyan-400/60 font-mono">
+                <div className="text-4xl mb-4">📡</div>
+                <div className="text-lg mb-2">No sensor data available</div>
+                <div className="text-sm">Waiting for equipment data...</div>
+              </div>
+            </div>
+          )}
+
+          {/* Content when sensors available */}
+          {sensors.length > 0 && (
+            <>
+              {/* Header */}
+              <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 tracking-wider">
+                SENSOR NETWORK
+              </h2>
+              <p className="text-cyan-400/60 font-mono text-sm mt-1">
+                Real-time monitoring and diagnostics
+              </p>
+            </div>
         <div className="flex items-center space-x-4">
           <select 
             value={timeRange}
@@ -397,6 +464,10 @@ const SensorGrid = ({ equipmentData }) => {
           </div>
         </div>
       </div>
+      </>
+      )}
+      </>
+      )}
     </div>
   );
 };

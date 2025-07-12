@@ -1,28 +1,40 @@
 {
-  "name": "smartmine-frontend",
+  "name": "smartmine-quantum-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
+  "description": "🚀 Revolutionary Quantum Mining Dashboard - The Future of Mining Technology",
+  "keywords": ["quantum-computing", "blockchain", "ai", "mining", "digital-twin", "carbon-credits"],
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "start": "vite --host 0.0.0.0 --port 5173",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "quantum-mode": "vite --mode quantum"
   },
   "dependencies": {
     "axios": "^1.7.0",
     "chart.js": "^4.5.0",
-    "react": "^19.1.0",
+    "react": "^18.2.0",
     "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^18.2.0",
+    "framer-motion": "^10.16.0",
+    "react-spring": "^9.7.0",
+    "d3": "^7.8.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.0",
+    "react-router-dom": "^6.20.0",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.12.0",
+    "recharts": "^2.8.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.30.1",

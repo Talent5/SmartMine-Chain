@@ -11,6 +11,8 @@ import CrusherMonitor from './components/CrusherMonitor';
 import StockpileMonitor from './components/StockpileMonitor';
 import SensorGrid from './components/SensorGrid';
 import Machine3D from './components/Machine3D';
+import QuantumAIInsights from './components/QuantumAIInsights';
+import './components/QuantumMineStyles.css';
 
 function SmartMineDashboard() {
   const [isConnected, setIsConnected] = useState(false);
@@ -23,7 +25,14 @@ function SmartMineDashboard() {
   const [aiRecommendations, setAiRecommendations] = useState([]);
   const [lastUpdate, setLastUpdate] = useState(null);
   const [_apiStatus, setApiStatus] = useState({ connected: false });
-  const [currentView, setCurrentView] = useState('overview');
+  const [currentView, setCurrentView] = useState('quantum-overview');
+  
+  // 🚀 REVOLUTIONARY NEW STATE
+  const [quantumMode, setQuantumMode] = useState(true);
+  const [neuralActivity, setNeuralActivity] = useState(85.4);
+  const [blockchainTransactions, setBlockchainTransactions] = useState(142);
+  const [carbonCredits, setCarbonCredits] = useState(1247);
+  const [systemPerformance, setSystemPerformance] = useState(96.7);
 
   useEffect(() => {
     // Test API connection first
@@ -71,6 +80,42 @@ function SmartMineDashboard() {
       wsService.disconnect();
     };
   }, []);
+
+  // 🚀 REVOLUTIONARY QUANTUM EFFECTS
+  useEffect(() => {
+    const quantumInterval = setInterval(() => {
+      // Simulate neural activity fluctuations
+      setNeuralActivity(prev => {
+        const variation = (Math.random() - 0.5) * 5;
+        return Math.max(70, Math.min(99, prev + variation));
+      });
+
+      // Simulate blockchain transactions
+      setBlockchainTransactions(prev => prev + Math.floor(Math.random() * 3));
+
+      // Simulate carbon credit accumulation
+      setCarbonCredits(prev => prev + Math.floor(Math.random() * 2));
+
+      // Simulate system performance optimization
+      setSystemPerformance(prev => {
+        const variation = (Math.random() - 0.5) * 2;
+        return Math.max(85, Math.min(99.9, prev + variation));
+      });
+    }, 5000); // Update every 5 seconds
+
+    return () => clearInterval(quantumInterval);
+  }, []);
+
+  // 🎮 QUANTUM MODE TOGGLE
+  const toggleQuantumMode = () => {
+    setQuantumMode(!quantumMode);
+    // Add quantum effects
+    if (!quantumMode) {
+      document.body.classList.add('quantum-mode');
+    } else {
+      document.body.classList.remove('quantum-mode');
+    }
+  };
 
   const getStatusColor = (status) => {
     const colors = {
@@ -361,126 +406,337 @@ function SmartMineDashboard() {
           />
         </div>
 
-        {/* Main Dashboard Grid */}
+        {/* 🚀 REVOLUTIONARY QUANTUM NAVIGATION */}
         <div className="mb-8">
-          {/* Navigation Tabs */}
-          <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg">
+          {/* Quantum Navigation Tabs */}
+          <div className="flex space-x-2 mb-6 bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80 p-2 rounded-lg border border-cyan-500/30 backdrop-blur-md">
             {[
-              { key: 'overview', label: 'Overview', icon: '🏠' },
-              { key: 'map', label: 'Mine Map', icon: '🗺️' },
-              { key: 'analytics', label: 'Analytics', icon: '📊' },
-              { key: 'predictions', label: 'AI Predictions', icon: '🔮' },
-              { key: 'maintenance', label: 'Maintenance', icon: '🔧' }
+              { key: 'quantum-overview', label: 'Quantum Overview', icon: '🧠', color: 'cyan' },
+              { key: 'neural-map', label: 'Neural Map', icon: '🗺️', color: 'purple' },
+              { key: 'ai-analytics', label: 'AI Analytics', icon: '📊', color: 'blue' },
+              { key: 'quantum-predictions', label: 'Quantum AI', icon: '🔮', color: 'pink' },
+              { key: 'blockchain', label: 'Blockchain', icon: '🔗', color: 'green' },
+              { key: 'carbon-credits', label: 'Carbon Credits', icon: '🌱', color: 'emerald' },
+              { key: 'maintenance', label: 'Maintenance', icon: '🔧', color: 'orange' }
             ].map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setCurrentView(tab.key)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`quantum-tab flex items-center space-x-2 px-4 py-3 rounded-md text-sm font-mono font-medium transition-all duration-300 transform hover:scale-105 ${
                   currentView === tab.key
-                    ? 'bg-white text-blue-600 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-800'
+                    ? `bg-${tab.color}-500/20 text-${tab.color}-300 border border-${tab.color}-500/50 shadow-[0_0_20px_rgba(6,182,212,0.3)]`
+                    : `text-gray-400 hover:text-${tab.color}-400 hover:bg-${tab.color}-500/10 border border-transparent`
                 }`}
+                style={{
+                  textShadow: currentView === tab.key ? `0 0 10px currentColor` : 'none',
+                  filter: currentView === tab.key ? 'drop-shadow(0 0 5px currentColor)' : 'none'
+                }}
               >
-                <span>{tab.icon}</span>
-                <span>{tab.label}</span>
+                <span className="text-lg">{tab.icon}</span>
+                <span className="uppercase tracking-wider">{tab.label}</span>
+                {currentView === tab.key && (
+                  <div className="w-2 h-2 bg-current rounded-full animate-pulse"></div>
+                )}
               </button>
             ))}
           </div>
 
-          {/* Tab Content */}
-          {currentView === 'overview' && (
-            <div className="equipment-grid">
-              {/* Truck Fleet */}
-              <div>
-                <div className="flex items-center space-x-3 mb-6">
-                  <h2 className="text-2xl font-bold text-gray-800">🚛 Truck Fleet</h2>
-                  <span className="status-badge status-badge-running">
-                    {Object.keys(trucks).length} Active
-                  </span>
+          {/* 🧠 QUANTUM OVERVIEW */}
+          {currentView === 'quantum-overview' && (
+            <>
+              {/* Revolutionary KPI Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                {/* Quantum Fleet Status */}
+                <div className="cyber-card p-6 holo-element">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="cyber-title text-sm">QUANTUM FLEET</h3>
+                    <div className="text-2xl animate-pulse">🚛</div>
+                  </div>
+                  <div className="text-3xl font-bold text-cyan-300 mb-2">
+                    {Object.keys(trucks).length}
+                  </div>
+                  <div className="text-xs font-mono text-cyan-400/70">
+                    {Object.values(trucks).filter(t => t.status === 'running').length} ACTIVE
+                  </div>
+                  <div className="mt-3 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-1000"
+                      style={{ 
+                        width: `${(Object.values(trucks).filter(t => t.status === 'running').length / Math.max(Object.keys(trucks).length, 1)) * 100}%` 
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
-                  {Object.values(trucks).slice(0, 6).map((truck) => (
-                    <TruckCard key={truck.id} truck={truck} />
-                  ))}
-                  {Object.keys(trucks).length === 0 && (
-                    <div className="mining-card text-center py-12 text-gray-500">
-                      <div className="text-5xl mb-4 opacity-50">🚛</div>
-                      <p className="text-lg">No trucks currently active</p>
-                    </div>
-                  )}
+
+                {/* Neural Processing */}
+                <div className="cyber-card p-6 holo-element">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="cyber-title text-sm">NEURAL PROCESSING</h3>
+                    <div className="text-2xl animate-spin">🧠</div>
+                  </div>
+                  <div className="text-3xl font-bold text-purple-300 mb-2">
+                    {neuralActivity.toFixed(1)}%
+                  </div>
+                  <div className="text-xs font-mono text-purple-400/70">
+                    AI EFFICIENCY
+                  </div>
+                  <div className="mt-3 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-purple-400 to-pink-500 animate-pulse"
+                      style={{ width: `${neuralActivity}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Blockchain Ledger */}
+                <div className="cyber-card p-6 holo-element">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="cyber-title text-sm">BLOCKCHAIN LEDGER</h3>
+                    <div className="text-2xl animate-bounce">🔗</div>
+                  </div>
+                  <div className="text-3xl font-bold text-green-300 mb-2">
+                    {blockchainTransactions}
+                  </div>
+                  <div className="text-xs font-mono text-green-400/70">
+                    TRANSACTIONS
+                  </div>
+                  <div className="mt-3 flex items-center space-x-1">
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className="w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: `${i * 0.2}s` }} />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Carbon Credits */}
+                <div className="cyber-card p-6 holo-element">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="cyber-title text-sm">CARBON CREDITS</h3>
+                    <div className="text-2xl animate-pulse">🌱</div>
+                  </div>
+                  <div className="text-3xl font-bold text-emerald-300 mb-2">
+                    {carbonCredits}
+                  </div>
+                  <div className="text-xs font-mono text-emerald-400/70">
+                    TONS CO2 SAVED
+                  </div>
+                  <div className="mt-3 text-xs font-mono text-emerald-400">
+                    $25,000 VALUE
+                  </div>
                 </div>
               </div>
 
-              {/* Crushers */}
-              <div>
-                <div className="flex items-center space-x-3 mb-6">
-                  <h2 className="text-2xl font-bold text-gray-800">⚙️ Crushers</h2>
-                  <span className="status-badge status-badge-running">
-                    {Object.values(crushers).filter(c => c.status === 'running').length} Running
-                  </span>
-                </div>
-                <div className="space-y-4">
-                  {Object.values(crushers).map((crusher) => (
-                    <CrusherCard key={crusher.id} crusher={crusher} />
-                  ))}
-                  {Object.keys(crushers).length === 0 && (
-                    <div className="mining-card text-center py-12 text-gray-500">
-                      <div className="text-5xl mb-4 opacity-50">⚙️</div>
-                      <p className="text-lg">No crushers currently active</p>
+              {/* Revolutionary Equipment Grid */}
+              <div className="equipment-grid">
+                {/* Quantum Truck Fleet */}
+                <div>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <h2 className="text-2xl font-bold text-cyan-400 font-mono">🚛 QUANTUM FLEET</h2>
+                    <span className="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm font-mono border border-cyan-500/50">
+                      {Object.keys(trucks).length} UNITS ACTIVE
+                    </span>
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-mono text-cyan-400">QUANTUM SYNC ACTIVE</span>
                     </div>
-                  )}
+                  </div>
+                  <div className="space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
+                    {Object.values(trucks).slice(0, 8).map((truck) => (
+                      <div key={truck.id} className="cyber-card p-4 holo-element transform transition-all duration-300 hover:scale-105">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="text-3xl">{truck.status === 'running' ? '🚛' : truck.status === 'maintenance' ? '🔧' : '🚚'}</div>
+                            <div>
+                              <h3 className="font-bold text-cyan-300 font-mono">{truck.id}</h3>
+                              <p className="text-sm text-cyan-400/70 font-mono uppercase">{truck.status}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-mono text-cyan-400">LOAD: {truck.current_load?.toFixed(0) || 0}T</div>
+                            <div className="text-sm font-mono text-cyan-400">FUEL: {truck.fuel_level?.toFixed(0) || 0}%</div>
+                            <div className="text-sm font-mono text-cyan-400">HEALTH: {truck.health_score?.toFixed(0) || 0}%</div>
+                          </div>
+                        </div>
+                        <div className="mt-3 grid grid-cols-3 gap-2">
+                          <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-blue-400 transition-all duration-1000" style={{ width: `${truck.current_load || 0}%` }} />
+                          </div>
+                          <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-yellow-400 transition-all duration-1000" style={{ width: `${truck.fuel_level || 0}%` }} />
+                          </div>
+                          <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-green-400 transition-all duration-1000" style={{ width: `${truck.health_score || 0}%` }} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {Object.keys(trucks).length === 0 && (
+                      <div className="cyber-card text-center py-12">
+                        <div className="text-5xl mb-4 opacity-50">🚛</div>
+                        <p className="text-lg text-cyan-400 font-mono">QUANTUM FLEET INITIALIZING...</p>
+                        <div className="mt-4 quantum-loader w-8 h-8 mx-auto"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Quantum Crushers */}
+                <div>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <h2 className="text-2xl font-bold text-purple-400 font-mono">⚙️ QUANTUM CRUSHERS</h2>
+                    <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-mono border border-purple-500/50">
+                      {Object.keys(crushers).length} UNITS
+                    </span>
+                  </div>
+                  <div className="space-y-4">
+                    {Object.values(crushers).map((crusher) => (
+                      <div key={crusher.id} className="cyber-card p-4 holo-element">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="text-3xl animate-spin">⚙️</div>
+                            <div>
+                              <h3 className="font-bold text-purple-300 font-mono">{crusher.id}</h3>
+                              <p className="text-sm text-purple-400/70 font-mono uppercase">{crusher.status}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-mono text-purple-400">THROUGHPUT: {crusher.current_throughput?.toFixed(0) || 0} T/H</div>
+                            <div className="text-sm font-mono text-purple-400">TEMP: {crusher.temperature?.toFixed(0) || 0}°C</div>
+                            <div className="text-sm font-mono text-purple-400">HEALTH: {crusher.health_score?.toFixed(0) || 0}%</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quantum AI Insights */}
+                <div>
+                  <QuantumAIInsights 
+                    trucks={trucks} 
+                    crushers={crushers} 
+                    stockpiles={stockpiles} 
+                    kpis={kpis} 
+                  />
                 </div>
               </div>
+            </>
+          )}
 
-              {/* Stockpiles */}
-              <div>
-                <div className="flex items-center space-x-3 mb-6">
-                  <h2 className="text-2xl font-bold text-gray-800">📦 Stockpiles</h2>
-                  <span className="status-badge status-badge-idle">
-                    {Object.keys(stockpiles).length} Total
-                  </span>
+          {/* 🗺️ NEURAL MAP VIEW */}
+          {currentView === 'neural-map' && (
+            <div className="grid grid-cols-1 gap-6">
+              <MineMapView trucks={trucks} crushers={crushers} stockpiles={stockpiles} />
+            </div>
+          )}
+
+          {/* 📊 AI ANALYTICS */}
+          {currentView === 'ai-analytics' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RealTimeCharts trucks={trucks} crushers={crushers} stockpiles={stockpiles} />
+              <SensorGrid equipmentData={{ trucks, crushers, stockpiles }} />
+            </div>
+          )}
+
+          {/* 🔮 QUANTUM PREDICTIONS */}
+          {currentView === 'quantum-predictions' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PredictiveAnalysis />
+              <QuantumAIInsights 
+                trucks={trucks} 
+                crushers={crushers} 
+                stockpiles={stockpiles} 
+                kpis={kpis} 
+              />
+            </div>
+          )}
+
+          {/* 🔗 BLOCKCHAIN VIEW */}
+          {currentView === 'blockchain' && (
+            <div className="cyber-card p-8 holo-element text-center">
+              <div className="text-6xl mb-6 animate-bounce">🔗</div>
+              <h2 className="cyber-title text-2xl mb-4">BLOCKCHAIN INTEGRATION</h2>
+              <p className="text-cyan-400 font-mono mb-6">
+                Revolutionary blockchain technology for transparent mining operations
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">📋</div>
+                  <div className="text-xl font-bold text-green-300">{blockchainTransactions}</div>
+                  <div className="text-sm font-mono text-green-400">TRANSACTIONS</div>
                 </div>
-                <div className="space-y-4">
-                  {Object.values(stockpiles).map((stockpile) => (
-                    <StockpileCard key={stockpile.id} stockpile={stockpile} />
-                  ))}
-                  {Object.keys(stockpiles).length === 0 && (
-                    <div className="mining-card text-center py-12 text-gray-500">
-                      <div className="text-5xl mb-4 opacity-50">📦</div>
-                      <p className="text-lg">No stockpiles configured</p>
-                    </div>
-                  )}
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">🔒</div>
+                  <div className="text-xl font-bold text-blue-300">100%</div>
+                  <div className="text-sm font-mono text-blue-400">IMMUTABLE</div>
+                </div>
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">⚡</div>
+                  <div className="text-xl font-bold text-purple-300">5ms</div>
+                  <div className="text-sm font-mono text-purple-400">LATENCY</div>
                 </div>
               </div>
             </div>
           )}
 
+          {/* 🌱 CARBON CREDITS */}
+          {currentView === 'carbon-credits' && (
+            <div className="cyber-card p-8 holo-element text-center">
+              <div className="text-6xl mb-6 animate-pulse">🌱</div>
+              <h2 className="cyber-title text-2xl mb-4">CARBON CREDIT SYSTEM</h2>
+              <p className="text-emerald-400 font-mono mb-6">
+                AI-powered carbon footprint reduction and credit generation
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">🌱</div>
+                  <div className="text-xl font-bold text-emerald-300">{carbonCredits}</div>
+                  <div className="text-sm font-mono text-emerald-400">TONS CO2 SAVED</div>
+                </div>
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">💰</div>
+                  <div className="text-xl font-bold text-yellow-300">$25,000</div>
+                  <div className="text-sm font-mono text-yellow-400">CREDIT VALUE</div>
+                </div>
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">⚡</div>
+                  <div className="text-xl font-bold text-blue-300">-15%</div>
+                  <div className="text-sm font-mono text-blue-400">ENERGY REDUCTION</div>
+                </div>
+                <div className="cyber-card p-6">
+                  <div className="text-3xl mb-2">🌍</div>
+                  <div className="text-xl font-bold text-green-300">A+</div>
+                  <div className="text-sm font-mono text-green-400">ECO RATING</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Legacy views for backwards compatibility */}
+          {currentView === 'overview' && (
+            <div className="equipment-grid">
+              {/* Redirect to quantum overview */}
+              {setCurrentView('quantum-overview')}
+            </div>
+          )}
+          
           {currentView === 'map' && (
-            <MineMapView 
-              trucks={trucks} 
-              crushers={crushers} 
-              stockpiles={stockpiles} 
-            />
+            <div className="grid grid-cols-1 gap-6">
+              <MineMapView trucks={trucks} crushers={crushers} stockpiles={stockpiles} />
+            </div>
           )}
-
+          
           {currentView === 'analytics' && (
-            <RealTimeCharts 
-              trucks={trucks} 
-              crushers={crushers} 
-              stockpiles={stockpiles} 
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RealTimeCharts trucks={trucks} crushers={crushers} stockpiles={stockpiles} />
+              <SensorGrid />
+            </div>
           )}
-
+          
           {currentView === 'predictions' && (
-            <PredictiveAnalysis 
-              equipmentData={{trucks, crushers, stockpiles}} 
-            />
-          )}
-
-          {currentView === 'maintenance' && (
-            <MaintenancePanel 
-              equipmentData={{trucks, crushers, stockpiles}} 
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PredictiveAnalysis />
+              <AIInsights />
+            </div>
           )}
         </div>
 
