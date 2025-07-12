@@ -1,0 +1,295 @@
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom SmartMine Digital Twin styles */
+@layer base {
+  body {
+    @apply bg-gray-50 font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Main card component */
+  .mining-card {
+    @apply bg-white rounded-xl shadow-mining border border-gray-200 p-6 transition-all duration-300 hover:shadow-mining-lg hover:-translate-y-1 slide-up;
+  }
+  
+  /* Header styles */
+  .mining-header {
+    @apply bg-gradient-to-r from-mining-dark to-gray-900 text-white px-6 py-4 rounded-t-xl;
+  }
+  
+  /* Status indicators */
+  .status-indicator {
+    @apply inline-block w-3 h-3 rounded-full animate-pulse;
+  }
+  
+  .status-running {
+    @apply bg-status-running shadow-glow-green;
+  }
+  
+  .status-idle {
+    @apply bg-status-idle;
+  }
+  
+  .status-maintenance {
+    @apply bg-status-maintenance shadow-glow-red;
+  }
+  
+  .status-loading {
+    @apply bg-status-loading;
+  }
+  
+  .status-hauling {
+    @apply bg-status-hauling;
+  }
+  
+  .status-dumping {
+    @apply bg-status-dumping;
+  }
+  
+  /* Metric cards */
+  .metric-card {
+    @apply mining-card border-l-4 border-l-mining-primary hover:border-l-mining-600 hover:scale-105 transform bg-gradient-to-br from-white to-gray-50 slide-up;
+  }
+  
+  /* Alert styles */
+  .alert-urgent {
+    @apply bg-red-50 border border-red-200 border-l-4 border-l-red-500 text-red-800 rounded-lg p-4;
+  }
+  
+  .alert-warning {
+    @apply bg-yellow-50 border border-yellow-200 border-l-4 border-l-yellow-500 text-yellow-800 rounded-lg p-4;
+  }
+  
+  .alert-info {
+    @apply bg-blue-50 border border-blue-200 border-l-4 border-l-blue-500 text-blue-800 rounded-lg p-4;
+  }
+  
+  /* Progress bars */
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-3 overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-in-out;
+  }
+  
+  /* Equipment grid */
+  .equipment-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  /* KPI grid */
+  .kpi-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+  
+  /* Dashboard layout */
+  .dashboard-layout {
+    @apply min-h-screen bg-gradient-to-br from-gray-50 to-gray-100;
+  }
+  
+  .dashboard-content {
+    @apply p-6 space-y-8;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply bg-mining-primary hover:bg-mining-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+  }
+  
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+  
+  /* Cyber button default neon styling */
+  .cyber-button {
+    @apply bg-cyan-600 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-md;
+  }
+  .cyber-button:hover {
+    @apply shadow-glow-neon transform scale-105;
+  }
+  
+  /* Neon text effect */
+  .neon-text {
+    color: rgba(0,255,255,1);
+    text-shadow: 0 0 4px rgba(0,255,255,0.7), 0 0 10px rgba(0,255,255,0.5);
+  }
+  
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+  
+  /* Glassmorphism effect */
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-xl;
+    @apply slide-up;
+  }
+  
+  /* Text utilities */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Loading spinner */
+  .spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-mining-primary;
+  }
+  
+  /* 3D visualization container */
+  .viz-container {
+    @apply bg-gray-900 rounded-xl overflow-hidden shadow-xl border border-gray-700;
+  }
+  
+  /* Chart container */
+  .chart-container {
+    @apply bg-white rounded-xl shadow-mining p-6 border border-gray-200;
+  }
+  
+  /* Equipment status badges */
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .status-badge-running {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .status-badge-idle {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  .status-badge-maintenance {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  /* Animation classes */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+  
+  .slide-up {
+    @apply animate-slide-up;
+  }
+  
+  .float {
+    @apply animate-float;
+  }
+  
+  /* Neon glow shadow for futuristic effect */
+  .shadow-glow-neon {
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+  }
+  
+  /* Grid background pattern for mine map */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+/* ======================= */
+/* Futuristic global utility classes */
+/* Project-wide cyber-card style */
+.cyber-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+  padding: 1.5rem;
+  animation: slide-up 0.6s ease-out;
+}
+/* Cyber button style */
+.cyber-button {
+  background-color: #06b6d4;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.cyber-button:hover {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+  transform: scale(1.05);
+}
+/* Neon text effect */
+.neon-text {
+  color: rgba(0,255,255,1);
+  text-shadow: 0 0 4px rgba(0,255,255,0.7), 0 0 10px rgba(0,255,255,0.5);
+}
+/* Holographic element wrapper */
+.holo-element {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Slide-up animation */
+.slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+/* Fade-in animation */
+.fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+/* Keyframes */
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* 3D map container with perspective */
+.map-3d-container {
+  perspective: 800px;
+  perspective-origin: center;
+}
+/* Preserve 3D transforms */
+.transform-3d {
+  transform-style: preserve-3d;
+}
+/* Tilt the map plane */
+.rotate-x-neg-20 {
+  transform: rotateX(-20deg);
+}
+/* Truck movement animation */
+.truck {
+  position: absolute;
+  will-change: transform;
+}
+@keyframes move-truck {
+  0% { transform: translate3d(-20%, 0, 0) rotateX(-20deg); }
+  100% { transform: translate3d(120%, 0, 0) rotateX(-20deg); }
+}
+.animate-move-truck {
+  animation: move-truck 20s linear infinite;
+}
